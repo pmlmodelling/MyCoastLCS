@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MYCOASTLCS.Aliasing &mdash; MYCOAST-LCS March-2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> MYCOAST-LCS
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">MYCOASTLCS-Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../theory.html">Theory</a></li>
+</ul>
+<p class="caption"><span class="caption-text">user guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html#how-to-get-the-code">How to get the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html#how-to-run-mycoastlcs">how to run MYCOASTLCS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup-json.html">main Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup-json.html#setup-json-template">Setup json template</a></li>
+</ul>
+<p class="caption"><span class="caption-text">code guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../MYCOASTLCS.html">MYCOASTLCS package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Bibliography.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MYCOAST-LCS</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>MYCOASTLCS.Aliasing</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for MYCOASTLCS.Aliasing</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Aliasing module. Module to controls the correspondece between</span>
+<span class="sd">the Lagrangian model output variables and the x,y,z of the MYCOASTFTLE module.</span>
+<span class="sd">Each Lagrangian model produces the outputs with their internal variable names.</span>
+<span class="sd">The alias dictionary &quot;links&quot; those variables with the</span>
+<span class="sd">internal x,y,z of the MYCOAST_FTLE module.</span>
+
+<span class="sd"> - model_input (string): Name of the Lagrangian model used.</span>
+
+<span class="sd">    Inputs supported in netcdf format:</span>
+<span class="sd">        - Pylag</span>
+<span class="sd">        - LAGAR</span>
+
+<span class="sd">Example:</span>
+<span class="sd">    - pylag_output.nc</span>
+<span class="sd">        output_variables: xpos, ypos, zpos</span>
+<span class="sd">    -alias_dict:</span>
+<span class="sd">        alis_dictionary={&#39;xpos&#39;: &#39;x&#39;, &#39;ypos&#39;: &#39;y&#39;, &#39;zpos&#39;: &#39;z&#39;,</span>
+<span class="sd">                         &#39;time&#39;: &#39;time&#39;}</span>
+
+<span class="sd">In order to work properly, the lagrangian model should produced netcdf outputs</span>
+<span class="sd">with dimensions [particle] or [id] and [time].</span>
+
+<span class="sd">The lagrangian simulation should be started in grid format filling the whole</span>
+<span class="sd">domain of the velocity field.</span>
+
+<span class="sd">o---------o---------o---------o---------o</span>
+<span class="sd">|         |         |         |         |</span>
+<span class="sd">|         |         |         |         |</span>
+<span class="sd">|         |         |         |         |</span>
+<span class="sd">o---------o---------o---------o---------o</span>
+<span class="sd">|         |         |         |         |</span>
+<span class="sd">|         |         |         |         |</span>
+<span class="sd">|         |         |         |         |</span>
+<span class="sd">o---------o---------o---------o---------o</span>
+<span class="sd">|         |         |         |         |</span>
+<span class="sd">|         |         |         |         |</span>
+<span class="sd">|         |         |         |         |</span>
+<span class="sd">o---------o---------o---------o---------o</span>
+<span class="sd">|         |         |         |         |</span>
+<span class="sd">|         |         |         |         |</span>
+<span class="sd">|         |         |         |         |</span>
+<span class="sd">o---------o---------o---------o---------o</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+
+
+<div class="viewcode-block" id="get_alias"><a class="viewcode-back" href="../../MYCOASTLCS.html#MYCOASTLCS.Aliasing.get_alias">[docs]</a><span class="k">def</span> <span class="nf">get_alias</span><span class="p">(</span><span class="n">model_input</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alias</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the alias dictionary (from the model input or from the json file)</span>
+<span class="sd">    to rename the dataset variables names of your lagrangian model with the</span>
+<span class="sd">    MYCOAST internal variables (x,y,z) to compute the FTLE.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        - alias (dict): Dictionary to link the variable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">model_input</span> <span class="o">==</span> <span class="s1">&#39;pylag&#39;</span><span class="p">:</span>
+        <span class="n">alias</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="s1">&#39;z&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;particles&#39;</span><span class="p">:</span> <span class="s1">&#39;particle_id&#39;</span><span class="p">}</span>
+    <span class="k">elif</span> <span class="n">model_input</span> <span class="o">==</span> <span class="s1">&#39;lagar&#39;</span><span class="p">:</span>
+        <span class="n">alias</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;lon&#39;</span><span class="p">:</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">:</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">:</span> <span class="s1">&#39;z&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;particle_id&#39;</span><span class="p">}</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">alias</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">alias</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;provide an alias dictionary or model to link</span>
+<span class="s2">          your variables with my [x, y, z, time, particle_id] variables&quot;&quot;&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">alias</span></div>
+
+
+<div class="viewcode-block" id="rename_dataset"><a class="viewcode-back" href="../../MYCOASTLCS.html#MYCOASTLCS.Aliasing.rename_dataset">[docs]</a><span class="k">def</span> <span class="nf">rename_dataset</span><span class="p">(</span><span class="n">alias</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">input_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Rename the variables/dimensions in the dataset using alias.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        alias (dict): Dictionary with variable/dimension names</span>
+<span class="sd">        input_file (str): Path to netCDF dataset.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        renamed_dataset (TYPE): Dataset with variables/dimension renamed.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">raw_dataset</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">input_file</span><span class="p">)</span>
+    <span class="n">renamed_dataset</span> <span class="o">=</span> <span class="n">raw_dataset</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">alias</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">renamed_dataset</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Angel Daniel Garaboa Paz / Vicente Perez Muñuzuri / Ricardo Torres / James Clark
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

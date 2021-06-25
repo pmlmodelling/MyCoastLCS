@@ -1,0 +1,457 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MYCOASTLCS.LCS &mdash; MYCOAST-LCS March-2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> MYCOAST-LCS
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">MYCOASTLCS-Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../theory.html">Theory</a></li>
+</ul>
+<p class="caption"><span class="caption-text">user guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html#how-to-get-the-code">How to get the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html#how-to-run-mycoastlcs">how to run MYCOASTLCS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup-json.html">main Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup-json.html#setup-json-template">Setup json template</a></li>
+</ul>
+<p class="caption"><span class="caption-text">code guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../MYCOASTLCS.html">MYCOASTLCS package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Bibliography.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MYCOAST-LCS</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>MYCOASTLCS.LCS</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for MYCOASTLCS.LCS</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot; LCS Module: This module contains the function to extract the Lagrangian</span>
+<span class="sd">Coherent structures as ridges in the 2D FTLE field.</span>
+
+<span class="sd">The detection of LCS based on the FTLE ridge extraction introduced in [a]_</span>
+
+<span class="sd">A ridge of FTLE is essentially a curve where it is locally maximized in</span>
+<span class="sd">the transverse direction, leading to a “second-derivative ridge” definition</span>
+<span class="sd">that required that a ridge was a curve (more generally, hypersurface in high</span>
+<span class="sd">dimensions), requiring the following conditions:</span>
+
+<span class="sd">1. The first derivative of the FTLE field must be zero in the normal direction,</span>
+<span class="sd">:math:`\mathbf{n}·\\nabla(FTLE) = 0.</span>
+
+<span class="sd">2. The second derivative of the field must be negative and minimum in the</span>
+<span class="sd">normal direction,</span>
+<span class="sd">:math:`ε_{min}(\\nabla^2(FTLE)) &lt; 0`,</span>
+<span class="sd">where :math:`ε_{min}` is the minimum eigenvalue of :math:`( \\nabla ^2(FTLE))`.</span>
+
+<span class="sd">3. The largest FTLE :math:`μ_{max} = μ_1` must be positive. There should be attraction</span>
+<span class="sd">within the surface and repulsion normal to it,</span>
+<span class="sd">:math:`μ_1 &gt; 0 &gt; μ_2`</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">skimage.feature</span> <span class="kn">import</span> <span class="n">hessian_matrix</span><span class="p">,</span> <span class="n">hessian_matrix_eigvals</span>
+<span class="kn">from</span> <span class="nn">skimage.measure</span> <span class="kn">import</span> <span class="n">label</span>
+
+
+<div class="viewcode-block" id="LCS"><a class="viewcode-back" href="../../MYCOASTLCS.html#MYCOASTLCS.LCS.LCS">[docs]</a><span class="k">class</span> <span class="nc">LCS</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eval_thrsh</span><span class="o">=</span><span class="s1">&#39;infer&#39;</span><span class="p">,</span> <span class="n">ftle_thrsh</span><span class="o">=</span><span class="s1">&#39;infer&#39;</span><span class="p">,</span> <span class="n">area_thrsh</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                 <span class="n">nr_neighb</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">ridge_points_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">to_dataset</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">eval_thrsh</span> <span class="o">=</span> <span class="n">eval_thrsh</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ftle_thrsh</span> <span class="o">=</span> <span class="n">ftle_thrsh</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">area_thrsh</span> <span class="o">=</span> <span class="n">area_thrsh</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nr_neighb</span> <span class="o">=</span> <span class="n">nr_neighb</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ridge_points_flag</span> <span class="o">=</span> <span class="n">ridge_points_flag</span>
+
+<div class="viewcode-block" id="LCS.get_lcs_mask_2d"><a class="viewcode-back" href="../../MYCOASTLCS.html#MYCOASTLCS.LCS.LCS.get_lcs_mask_2d">[docs]</a>    <span class="k">def</span> <span class="nf">get_lcs_mask_2d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ds</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">         Extract points that sit on the dominant ridges of FTLE 2D data</span>
+<span class="sd">         A ridge point is defined as a point, where the gradient vector is</span>
+<span class="sd">         orthogonal to the eigenvector of the smallest (negative) eigenvalue of</span>
+<span class="sd">         the Hessian matrix (curvature).</span>
+<span class="sd">         The found points are filtered to extract only points on strong FTLE</span>
+<span class="sd">         separatrices. Therefore points are only taken, if:</span>
+
+<span class="sd">         a) FTLE value is high at the point&#39;s position</span>
+<span class="sd">         b) the negative curvature is high</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            - eval_thrsh (str or float, optional): scalar. Selects zones with</span>
+<span class="sd">            small Hessian eigenvalue smaller than eval_thrsh. use &#39;infer&#39; to</span>
+<span class="sd">            obtain the threshold from the 95 percentile of the data of the</span>
+<span class="sd">            FTLE field.</span>
+<span class="sd">            - FTLE_thrsh (str or float, optional): scalar. Selects connected</span>
+<span class="sd">            areas (with 4 or 8 neighbors) larger than area_thrsh. use &#39;infer&#39;</span>
+<span class="sd">            to obtain the threshold from the 95 percentile of the data of the</span>
+<span class="sd">            FTLE field.</span>
+<span class="sd">            - area_thrsh (float, optional):  scalar. Selects connected areas</span>
+<span class="sd">            (with 4 or 8 neighbors) larger than area_thrsh</span>
+<span class="sd">            - nr_neighb (int, optional): scalar. Connection neighbours (4 or 8)</span>
+<span class="sd">            - ridge_points_flag (bool, optional): x0,y0 exact ridge poisition if 1.</span>
+<span class="sd">            (matrix coordinates)</span>
+<span class="sd">            - to_dataset (bool, optional): Logical mask for ridges in the FTLE</span>
+<span class="sd">            field LCS_forward and LCS_backward to the outputted dataset.</span>
+
+
+<span class="sd">        Example:</span>
+<span class="sd">             Define variables</span>
+<span class="sd">             eval_thrsh = -0.005;  # Selects zones with small Hessian eigenvalue smaller than eval_thrsh</span>
+<span class="sd">             FTLE_thrsh = 0.07;    # Selects zones with FTLE larger than FTLE_thrsh</span>
+<span class="sd">             area_thrsh = 10;      # Selects connected areas (with 4 or 8 neighbors) larger than area_thrsh</span>
+<span class="sd">             nr_neighb = 8;        # conection neighbours (4 or 8)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            ridge_mask: logical mask for ridges in FTLE field</span>
+<span class="sd">            x0: Positions of points on FTLE ridges</span>
+<span class="sd">            y0: Positions of points on FTLE ridges</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="s1">&#39;FTLE_forward&#39;</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">ftle</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;FTLE_forward&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">ftle</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">elif</span> <span class="s1">&#39;FTLE_backward&#39;</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">ftle</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;FTLE_backward&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">ftle</span><span class="o">.</span><span class="n">shape</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ftle_thrsh</span> <span class="o">==</span> <span class="s1">&#39;infer&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ftle_thrsh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">ftle</span><span class="p">,</span> <span class="mi">95</span><span class="p">)</span>
+
+        <span class="c1"># Gradient and Hessian matrix (2nd derivatives) from finite differences</span>
+        <span class="p">[</span><span class="n">dy</span><span class="p">,</span> <span class="n">dx</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">ftle</span><span class="p">)</span>
+
+        <span class="c1"># Make 2D hessian</span>
+        <span class="n">hxx</span><span class="p">,</span> <span class="n">hxy</span><span class="p">,</span> <span class="n">hyy</span> <span class="o">=</span> <span class="n">hessian_matrix</span><span class="p">(</span><span class="n">ftle</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">)</span>
+
+        <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span> <span class="o">=</span> <span class="n">hessian_matrix_eigvals</span><span class="p">([</span><span class="n">hxx</span><span class="p">,</span> <span class="n">hxy</span><span class="p">,</span> <span class="n">hyy</span><span class="p">])</span>
+
+        <span class="n">Lambda2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">hxx</span><span class="p">)</span>
+        <span class="n">Lambda1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">hxx</span><span class="p">)</span>
+        <span class="n">EVecx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">hxx</span><span class="p">)</span>
+        <span class="n">EVecy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">hxx</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+                <span class="n">eigvalue</span><span class="p">,</span> <span class="n">eigenvec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">([[</span><span class="n">hxx</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">hxy</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]],</span>
+                               <span class="p">[</span><span class="n">hxy</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">hyy</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]]]))</span>
+                <span class="n">Lambda2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">Lambda1</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="o">=</span> <span class="n">eigvalue</span>
+                <span class="n">EVecx</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">EVecy</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">eigenvec</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">eigenvec</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">EVal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">Lambda2</span><span class="p">,</span> <span class="n">Lambda1</span><span class="p">)</span>
+        <span class="c1"># EVal = np.nan_to_num(EVal)</span>
+
+        <span class="c1"># Compute the direction of the minor eigenvector</span>
+        <span class="c1"># Define ridges as zero level lines of inner product</span>
+        <span class="c1"># of gradient and eigenvector of smaller (negative) eigenvalue</span>
+        <span class="n">ridge</span> <span class="o">=</span> <span class="n">EVecx</span><span class="o">*</span><span class="n">dx</span> <span class="o">+</span> <span class="n">EVecy</span><span class="o">*</span><span class="n">dy</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_thrsh</span> <span class="o">==</span> <span class="s1">&#39;infer&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eval_thrsh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">EVal</span><span class="p">,</span> <span class="mi">95</span><span class="p">)</span>
+
+        <span class="c1"># Define filter masks with high negative curvature</span>
+        <span class="n">Eval_neg_bin</span> <span class="o">=</span> <span class="n">EVal</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_thrsh</span>
+
+        <span class="c1"># High FTLE value</span>
+        <span class="n">FTLE_high_bin</span> <span class="o">=</span> <span class="n">ftle</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ftle_thrsh</span>
+
+        <span class="c1"># Combined mask</span>
+        <span class="n">ridge_mask</span> <span class="o">=</span> <span class="n">FTLE_high_bin</span><span class="o">*</span><span class="n">Eval_neg_bin</span>
+
+        <span class="c1"># Remove small connected areas in combined mask</span>
+
+        <span class="c1"># label areas</span>
+        <span class="n">L</span> <span class="o">=</span> <span class="n">label</span><span class="p">(</span><span class="n">ridge_mask</span><span class="p">,</span> <span class="n">connectivity</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nr_neighb</span><span class="p">)</span>
+        <span class="c1"># filter mask</span>
+        <span class="n">Lmax</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">Lmax</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">((</span><span class="n">L</span><span class="p">[</span><span class="n">L</span> <span class="o">==</span> <span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">area_thrsh</span><span class="p">):</span>  <span class="c1"># || (Lmax_ind &gt; L_f/2)</span>
+                <span class="n">L</span><span class="p">[</span><span class="n">L</span> <span class="o">==</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># set new mask</span>
+        <span class="n">ridge_mask</span><span class="p">[</span><span class="n">L</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">ridge_mask</span><span class="p">[</span><span class="n">L</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&gt; LCS   &gt;&gt; Area threshold:&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">area_thrsh</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&gt; LCS   &gt;&gt; FTLE threshold:&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ftle_thrsh</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&gt; LCS   &gt;&gt; EVal threshold:&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_thrsh</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&gt; LCS   &gt;&gt; Potential LCS:&#39;</span><span class="p">,</span> <span class="n">Lmax</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">ridge_mask</span><span class="p">,</span> <span class="n">ridge</span></div>
+
+<div class="viewcode-block" id="LCS.to_dataset"><a class="viewcode-back" href="../../MYCOASTLCS.html#MYCOASTLCS.LCS.LCS.to_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">to_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">ridge_mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add to the dataset the mask with potential LCS detected from FTLE.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ds (xr.Dataset): Dataset containing FTLE fields.</span>
+<span class="sd">            ridge_mask (np.array): boolean array. True = LCS candidate</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s1">&#39;FTLE_forward&#39;</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;LCS_forward&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;FTLE_forward&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">ridge_mask</span><span class="p">)</span>
+            <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;LCS_forward&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">LCS_forward</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">FTLE_forward</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="s1">&#39;FTLE_backward&#39;</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;LCS_backward&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;FTLE_backward&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">ridge_mask</span><span class="p">)</span>
+            <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;LCS_backward&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">LCS_backward</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">FTLE_backward</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="LCS.get_lcs_ridge_points"><a class="viewcode-back" href="../../MYCOASTLCS.html#MYCOASTLCS.LCS.LCS.get_lcs_ridge_points">[docs]</a>    <span class="k">def</span> <span class="nf">get_lcs_ridge_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ridge_mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="nb">list</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract the geometric x,y ridge postions from the LCS mask.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ridge_mask (np.array): boolean array. True = LCS candidate</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            x_ridge (list): list of x ridge points</span>
+<span class="sd">            y_ridge (list): list of y ridge points</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">ridge_mask</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+        <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">x_ridge</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">y_ridge</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">ridge_mask</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">j</span><span class="p">:</span><span class="n">j</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+                    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ridge_mask</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">ridge_mask</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]])</span>
+                    <span class="n">m1</span> <span class="o">=</span> <span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># Calculamos la pendiente</span>
+                    <span class="c1"># Calculamos el punto de corte con el eje y,</span>
+                    <span class="n">n1</span> <span class="o">=</span> <span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">m1</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="c1"># round zero point (-n1/m1) to the nearest j</span>
+                    <span class="k">if</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="o">-</span><span class="n">n1</span><span class="o">/</span><span class="n">m1</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="o">-</span><span class="n">n1</span><span class="o">/</span><span class="n">m1</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])):</span>
+                        <span class="n">js</span> <span class="o">=</span> <span class="n">j</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">js</span> <span class="o">=</span> <span class="n">j</span><span class="o">+</span><span class="mi">1</span>
+                    <span class="k">if</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">n1</span><span class="o">/</span><span class="n">m1</span> <span class="ow">and</span> <span class="o">-</span><span class="n">n1</span><span class="o">/</span><span class="n">m1</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span>
+                       <span class="n">ridge_mask</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">js</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+                        <span class="n">cnt</span> <span class="o">=</span> <span class="n">cnt</span><span class="o">+</span><span class="mi">1</span>
+                        <span class="n">x_ridge</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="n">n1</span><span class="o">/</span><span class="n">m1</span><span class="p">)</span>
+                        <span class="n">y_ridge</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="o">-</span><span class="mi">2</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">ridge_mask</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">y</span> <span class="o">=</span> <span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+                    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ridge_mask</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">ridge_mask</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">]])</span>
+                    <span class="n">m1</span> <span class="o">=</span> <span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="n">n1</span> <span class="o">=</span> <span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">m1</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="c1"># round zero point (-n1/m1) to the nearest i</span>
+                    <span class="k">if</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="o">-</span><span class="n">n1</span><span class="o">/</span><span class="n">m1</span><span class="o">-</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="o">-</span><span class="n">n1</span><span class="o">/</span><span class="n">m1</span><span class="o">-</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">])):</span>
+                        <span class="n">isi</span> <span class="o">=</span> <span class="n">i</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">isi</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+
+                    <span class="k">if</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">n1</span><span class="o">/</span><span class="n">m1</span> <span class="ow">and</span>
+                       <span class="o">-</span><span class="n">n1</span><span class="o">/</span><span class="n">m1</span> <span class="o">&lt;</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span>  <span class="n">ridge_mask</span><span class="p">[</span><span class="n">isi</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+                        <span class="n">cnt</span> <span class="o">=</span> <span class="n">cnt</span><span class="o">+</span><span class="mi">1</span>
+                        <span class="n">x_ridge</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                        <span class="n">y_ridge</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="n">n1</span><span class="o">/</span><span class="n">m1</span><span class="p">)</span>
+
+                <span class="k">return</span> <span class="n">x_ridge</span><span class="p">,</span> <span class="n">y_ridge</span><span class="p">,</span> <span class="n">ridge_mask</span></div>
+
+<div class="viewcode-block" id="LCS.get_lcs"><a class="viewcode-back" href="../../MYCOASTLCS.html#MYCOASTLCS.LCS.LCS.get_lcs">[docs]</a>    <span class="k">def</span> <span class="nf">get_lcs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ds</span><span class="p">:</span><span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the LCS from a xr.Dataset containing FTLE field&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ds (xr.Dataset): DESCRIPTION.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">ridge_mask</span><span class="p">,</span> <span class="n">ridge</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_lcs_mask_2d</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">ridge_mask</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ridge_points_flag</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_lcs_ridge_points</span><span class="p">(</span><span class="n">ridge_mask</span><span class="p">,</span> <span class="n">ridge</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Angel Daniel Garaboa Paz / Vicente Perez Muñuzuri / Ricardo Torres / James Clark
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

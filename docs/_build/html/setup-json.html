@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>main Module &mdash; MYCOAST-LCS March-2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="MYCOASTLCS package" href="MYCOASTLCS.html" />
+    <link rel="prev" title="Requirements" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> MYCOAST-LCS
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">MYCOASTLCS-Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theory.html">Theory</a></li>
+</ul>
+<p class="caption"><span class="caption-text">user guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#how-to-get-the-code">How to get the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#how-to-run-mycoastlcs">how to run MYCOASTLCS</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">main Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#reading-the-config-file">Reading the config file</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#setup-json-template">Setup json template</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setup-structure">Setup structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#common-keys">Common - keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ftle-keys">FTLE - keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lcs-keys">LCS - keys</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">code guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="MYCOASTLCS.html">MYCOASTLCS package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Bibliography.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MYCOAST-LCS</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>main Module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/setup-json.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="main-module">
+<h1>main Module<a class="headerlink" href="#main-module" title="Permalink to this headline">¶</a></h1>
+<p>It runs the core <code class="file docutils literal notranslate"><span class="pre">Common.py</span></code> of the MYCOASTLCS package. It reads the setup file, runs and connects the different inputs and outputs of the different MYCOASTLCS modules.</p>
+<div class="section" id="reading-the-config-file">
+<h2>Reading the config file<a class="headerlink" href="#reading-the-config-file" title="Permalink to this headline">¶</a></h2>
+<p>It reads the JSON file described in <a href="#id1"><span class="problematic" id="id2">`LAGAR Setup`_</span></a> passed as a argument from the command line,</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>$ python -m MYCOASTLCS -j setup.json -i &#39;Pylag_0*.nc&#39; -o output.nc
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="setup-json-template">
+<h1>Setup json template<a class="headerlink" href="#setup-json-template" title="Permalink to this headline">¶</a></h1>
+<p>Before running, the first step is to configure the <code class="file docutils literal notranslate"><span class="pre">template_setup.json</span></code>. This file contains different
+dictionaries to be read by the MYCOASTLCS main method. Each dictionary inside the JSON file configures a module or class.</p>
+<div class="section" id="setup-structure">
+<h2>Setup structure<a class="headerlink" href="#setup-structure" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt>The dictionary controls manages two main things:</dt><dd><ol class="arabic simple">
+<li><p>Link between the grid of particles by your Lagrangian Model and MYCOASTLCS.</p></li>
+<li><p>The desire measures to compute.</p></li>
+</ol>
+</dd>
+</dl>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>{
+&quot;common&quot;:{
+    &quot;model&quot;:&quot;pylag&quot;,
+    &quot;alias&quot;:{&quot;xpos&quot;:&quot;x&quot;,
+             &quot;ypos&quot;:&quot;y&quot;,
+             &quot;zpos&quot;:&quot;z&quot;,
+             &quot;time&quot;:&quot;time&quot;,
+             &quot;particles&quot;:&quot;particle_id&quot;
+            },
+    &quot;grid_shape&quot;:[1,500,500]
+},
+&quot;FTLE&quot;:{
+    &quot;spherical_flag&quot;:0,
+    &quot;integration_time_index&quot;:-1
+},
+&quot;LCS&quot;:{
+    &quot;eval_thrsh&quot;:&quot;infer&quot;,
+    &quot;ftle_thrsh&quot; : &quot;infer&quot;,
+    &quot;area_thrsh&quot; : 100,
+    &quot;nr_neighb&quot; : 2,
+    &quot;ridge_points_flag&quot; : 0
+},
+&quot;CONC&quot;:{
+    &quot;bins_option&quot;:&quot;origin&quot;,
+    &quot;nbins&quot;:[]
+},
+&quot;RESD&quot;:{
+    &quot;bins_option&quot;:&quot;origin&quot;,
+    &quot;nbins&quot;:[]
+}
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="common-keys">
+<h2>Common - keys<a class="headerlink" href="#common-keys" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>common</strong> dictionary ontrols the correspondece between the Lagrangian model output variables and the x,y,z of the MYCOASTFTLE module.
+Each Lagrangian model produces the outputs with their internal variable names.</p>
+<p>-<strong>model</strong>: String  with ame of the Lagrangian model used. At this moment just Pylag and LAGAR are supported.</p>
+<ul>
+<li><p><strong>alias</strong>: In case that your model is not supported, you should specify the link between your model output variables and the MYCOAST internal variables. An example, if you module produces, <em>xpos, ypos, zpos, time, particles</em>, your dictionary should looks like:</p>
+<blockquote>
+<div><div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>&quot;alias&quot;:{&quot;xpos&quot;:&quot;x&quot;,
+         &quot;ypos&quot;:&quot;y&quot;,
+         &quot;zpos&quot;:&quot;z&quot;,
+         &quot;time&quot;:&quot;time&quot;,
+         &quot;particles&quot;:&quot;particle_id&quot;
+        },
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>grid_shape</strong>: If your model produces outputs with where the set of particles has a unique index dimension (it is flatted), for example: <span class="math notranslate nohighlight">\(\mathbf{r}_i\)</span>, you should specify the <em>grid dimension</em> initially used: <span class="math notranslate nohighlight">\(\mathbf{r}_{ijk}, i=1:n_z, j=1:n_y, k:1:n_x\)</span>.</p>
+<blockquote>
+<div><div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>&quot;grid_shape&quot;:[1,500,500]
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p>In this example, our grid of initial condition, has 250000 particles: 1 depth layer (2D <span class="math notranslate nohighlight">\(n_z=1\)</span>) and <span class="math notranslate nohighlight">\(n_x*n_y = 500 x 500\)</span> particles on horizontal.</p>
+</div>
+<div class="section" id="ftle-keys">
+<h2>FTLE - keys<a class="headerlink" href="#ftle-keys" title="Permalink to this headline">¶</a></h2>
+<p>We have two options to compute the FTLE.</p>
+<ul class="simple">
+<li><p><strong>spherical_flag</strong>: Flag to set when the coordinates of your particle positions are given in degrees(1) or meters(0).</p></li>
+<li><p><strong>integration_time_index</strong>: It sets which timestep of your each netCDF input dataset consider to compute the FTLE. It follows Python convention, so -1 means to use last timestep with the final particle positions.</p></li>
+</ul>
+</div>
+<div class="section" id="lcs-keys">
+<h2>LCS - keys<a class="headerlink" href="#lcs-keys" title="Permalink to this headline">¶</a></h2>
+<p>The LCS keys sets the LCS extractions parameters from FTLE.</p>
+<ul class="simple">
+<li><p><strong>eval_thrsh</strong>: Eigenvalue threshold. It sets the thresholds for the minimum eigenvalue of the hessian. More negative means more curved or more folded FTLE ridge. <cite>MYCOASTLCS.LCS</cite>. If you set to <cite>infer</cite>, it takes the 95 percentile of minimum eigenvalues of the hessian from the FTLE field.</p></li>
+<li><p><strong>ftle_thrsh</strong>: Ftle threshold. It sets the thresholds to filter weak FTLE values. Those values below that threshold cannot be considered as LCS. This filters low strechting manifolds. If you set to <cite>infer</cite>, it takes the 95 percentile of the values from the FTLE field to perform the filtering.</p></li>
+<li><p><strong>area_thrsh</strong>: Area threshold in pixels. It sets the number of points in <em>r_ijk</em>/”grid_shape” that should be contiguous in order to be considered as “large” structure enough. Strongly dependent of <strong>nr_neighb</strong>.</p></li>
+<li><p><strong>nr_neighb</strong> : Nearest neighboring (2 or 4). It sets the way to consider points contiguos FTLE points. It2 you just need a point and a continguos point.</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="MYCOASTLCS.html" class="btn btn-neutral float-right" title="MYCOASTLCS package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral float-left" title="Requirements" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Angel Daniel Garaboa Paz / Vicente Perez Muñuzuri / Ricardo Torres / James Clark
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

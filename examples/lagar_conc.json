@@ -1,0 +1,19 @@
+{
+  "common": {
+    "alias": {"LONGITUDE":"x",
+              "LATITUDE":"y",
+              "DEPTH":"z",
+              "time":"time"
+            },
+    "grid_shape": [1,500,500]
+  },
+  "CONC": {
+    "bins_option":"domain",
+    "nbins": 150
+    },
+  "RESD": {
+    "bins_option": "domain",
+    "nbins": [1,50,50]
+  }
+}
+

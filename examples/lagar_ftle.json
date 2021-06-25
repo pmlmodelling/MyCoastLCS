@@ -1,0 +1,22 @@
+{
+"common":{
+    "alias": {"LONGITUDE":"x",
+              "LATITUDE":"y",
+              "DEPTH":"z",
+              "time":"time"
+            },
+    "grid_shape":[1,500,500]
+},
+"FTLE":{
+    "spherical_flag":1,
+    "integration_time_index":-1
+},
+"LCS":{
+    "eval_thrsh":"infer",
+    "ftle_thrsh" : "infer",
+    "area_thrsh" : 100,
+    "nr_neighb" : 2,
+    "ridge_points_flag" : 0
+}
+}
+

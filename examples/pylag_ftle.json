@@ -1,0 +1,23 @@
+{
+  "common": {
+    "alias": {"x":"x",
+             "y":"y",
+             "z":"z",
+             "time":"time",
+	     "group_id":"particle_id"
+            },
+    "grid_shape": [1,500,500]
+  },
+  "FTLE": {
+    "spherical_flag": 0,
+    "integration_time_index": "all"
+  },
+  "LCS": {
+    "eval_thrsh": "infer",
+    "ftle_thrsh": "infer",
+    "area_thrsh": 100,
+    "nr_neighb": 2,
+    "ridge_points_flag": 1
+  }
+}
+

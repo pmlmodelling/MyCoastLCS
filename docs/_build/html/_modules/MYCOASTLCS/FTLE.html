@@ -1,0 +1,469 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MYCOASTLCS.FTLE &mdash; MYCOAST-LCS March-2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> MYCOAST-LCS
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">MYCOASTLCS-Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../theory.html">Theory</a></li>
+</ul>
+<p class="caption"><span class="caption-text">user guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html#how-to-get-the-code">How to get the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html#how-to-run-mycoastlcs">how to run MYCOASTLCS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup-json.html">main Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup-json.html#setup-json-template">Setup json template</a></li>
+</ul>
+<p class="caption"><span class="caption-text">code guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../MYCOASTLCS.html">MYCOASTLCS package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Bibliography.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MYCOAST-LCS</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>MYCOASTLCS.FTLE</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for MYCOASTLCS.FTLE</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module to compute the Finite Time Lyapunov Exponents using the Cauchy Green</span>
+<span class="sd">Finite Time deformation tensor. For more information about the method [a]_:</span>
+
+
+<span class="sd">FTLE-definition</span>
+<span class="sd">===============</span>
+<span class="sd">Finite-Time Lyapunov Exponents have been used exten sively to quantify mixing</span>
+<span class="sd">and especially to extract persisting transport patterns in the flow,</span>
+<span class="sd">referred to as LCS. The FTLE at a given location measures the maximum</span>
+<span class="sd">stretching rate of an infinitesimal fluid parcel over the interval</span>
+<span class="sd">:math:`[t_0 , t_0 + T]` starting at the point :math:`r_0` at time :math:`t_0`.</span>
+
+
+<span class="sd">Numerical Computation</span>
+<span class="sd">=====================</span>
+<span class="sd">The standard method to compute the FTLE field starts with the initialization</span>
+<span class="sd">of a grid of material points equally spaced in a structured grid at </span>
+<span class="sd">:math:`\mathbf{r_0}_{ij}`</span>
+<span class="sd">at time :math:`t_0`.</span>
+
+<span class="sd">This simplifies gradient computation and does not require a priory knowledge</span>
+<span class="sd">of the flow topology, which makes the discussion most broadly applicable.</span>
+<span class="sd">The initial locations of these points, as opposed to the final</span>
+<span class="sd">locations, represent the locations at which FTLE will be computed – the FTLE</span>
+<span class="sd">grid. Then, we using the particles trajectories given by the model soltuion</span>
+<span class="sd">for each material point for a finite time interval, :math:`[t_0 ,t_0 + T]`,</span>
+<span class="sd">we computethe numerical gradient of the flow map.</span>
+
+<span class="sd">We use second order accurate central differences in the interior points and</span>
+<span class="sd">first order (forward or backwards) differences at the boundaries.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="FTLE"><a class="viewcode-back" href="../../MYCOASTLCS.html#MYCOASTLCS.FTLE.FTLE">[docs]</a><span class="k">class</span> <span class="nc">FTLE</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    FTLE</span>
+<span class="sd">    ====</span>
+
+<span class="sd">    It provides the methods to compute the FTLE from a structured gridded</span>
+<span class="sd">    dataset for 2D or 3D data.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spherical_flag</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">integration_time_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Init the object with the setup provided in order to extract ftle.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            - spherical (bool): True/false. cartesian(false) or spherical(true)</span>
+<span class="sd">            - integration_time(int): Integer number with the time index of the</span>
+<span class="sd">          the last position of the particles.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">spherical_flag</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">spherical_flag</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">integration_time</span> <span class="o">=</span> <span class="n">integration_time_index</span>
+
+<div class="viewcode-block" id="FTLE.get_integration_time"><a class="viewcode-back" href="../../MYCOASTLCS.html#MYCOASTLCS.FTLE.FTLE.get_integration_time">[docs]</a>    <span class="k">def</span> <span class="nf">get_integration_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot; Gets the integration in seconds from the integration time index.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            - ds (xr.Dataset): dataset with lagrangian simulation.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            - T(float): integration time in seconds</span>
+<span class="sd">            - timeindex(int): integration time index in time dataset axis</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">integration_time</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">timeindex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">integration_time</span>
+            <span class="n">T</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">timeindex</span><span class="p">]</span><span class="o">-</span><span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;timedelta64[s]&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;f8&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">T</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="n">T</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">timeindex</span><span class="p">]</span><span class="o">-</span><span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;f8&#39;</span><span class="p">)</span><span class="o">*</span><span class="mf">1e-9</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">integration_time</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="n">timeindex</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="n">T</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">integration_time</span>
+
+        <span class="k">return</span> <span class="n">T</span><span class="p">,</span> <span class="n">timeindex</span></div>
+
+<div class="viewcode-block" id="FTLE.get_ftle_2d_cartesian"><a class="viewcode-back" href="../../MYCOASTLCS.html#MYCOASTLCS.FTLE.FTLE.get_ftle_2d_cartesian">[docs]</a>    <span class="k">def</span> <span class="nf">get_ftle_2d_cartesian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot; Gets the 2D FTLE field in cartesian coordinates.</span>
+
+<span class="sd">            Shadden, Shawn &amp; Lekien, Francois &amp; Marsden, Jerrold. (2005).</span>
+<span class="sd">            Definition and properties of Lagrangian coherent structures from</span>
+<span class="sd">            finit-time Lyapunov exponents in two-dimensional aperiodic flows.</span>
+<span class="sd">            Physica D. 212. 271-304. 10.1016/j.physd.2005.10.007.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            - ds (xr.Dataset): dataset with lagrangian simulation.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            - ftle (np.array) : 2d dimensional array.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">T</span><span class="p">,</span> <span class="n">timeindex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_integration_time</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+        <span class="n">x_T</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">timeindex</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+        <span class="n">y_T</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">timeindex</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+        <span class="n">dxdy</span><span class="p">,</span> <span class="n">dxdx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">x_T</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">y0</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">x0</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+        <span class="n">dydy</span><span class="p">,</span> <span class="n">dydx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">y_T</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">y0</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">x0</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+        <span class="n">ny</span><span class="p">,</span> <span class="n">nx</span> <span class="o">=</span> <span class="n">dxdy</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">ftle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">ny</span><span class="p">,</span> <span class="n">nx</span><span class="p">])</span>
+        <span class="n">J</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ny</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nx</span><span class="p">):</span>
+                <span class="n">J</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">dxdx</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">dxdy</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]],</span>
+                              <span class="p">[</span><span class="n">dydx</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">dydy</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]]])</span>
+                <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">J</span><span class="p">),</span> <span class="n">J</span><span class="p">)</span>
+                <span class="n">eig_lya</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+                <span class="n">ftle</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">T</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eig_lya</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
+        <span class="k">return</span> <span class="n">ftle</span></div>
+
+<div class="viewcode-block" id="FTLE.get_ftle_2d_spherical"><a class="viewcode-back" href="../../MYCOASTLCS.html#MYCOASTLCS.FTLE.FTLE.get_ftle_2d_spherical">[docs]</a>    <span class="k">def</span> <span class="nf">get_ftle_2d_spherical</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot; Gets the 2D FTLE field in in lat - lon coordinates.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            - ds (xr.Dataset): grid structured dataset with lagrangian</span>
+<span class="sd">            simulation.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            - ftle (np.array) : 2d dimensional array.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">T</span><span class="p">,</span> <span class="n">timeindex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_integration_time</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="mf">6370000.</span>
+        <span class="n">x_T</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">timeindex</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+        <span class="n">y_T</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">timeindex</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+        <span class="n">dxdy</span><span class="p">,</span> <span class="n">dxdx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">x_T</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">y0</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">x0</span><span class="p">)</span>
+        <span class="n">dydy</span><span class="p">,</span> <span class="n">dydx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">y_T</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">y0</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">x0</span><span class="p">)</span>
+        <span class="n">ny</span><span class="p">,</span> <span class="n">nx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">dxdx</span><span class="p">)</span>
+        <span class="n">ftle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">ny</span><span class="p">,</span> <span class="n">nx</span><span class="p">])</span>
+        <span class="n">theta</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">timeindex</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ny</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nx</span><span class="p">):</span>
+                <span class="n">J</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">dxdx</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">dxdy</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]],</span>
+                              <span class="p">[</span><span class="n">dydx</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">dydy</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]]])</span>
+                <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                    <span class="p">[[</span><span class="n">R</span><span class="o">*</span><span class="n">R</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">180.</span><span class="p">),</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="n">R</span><span class="o">*</span><span class="n">R</span><span class="p">]])</span>
+                <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">J</span><span class="p">),</span> <span class="n">M</span><span class="p">),</span> <span class="n">J</span><span class="p">)</span>
+                <span class="n">eig_lya</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+                <span class="n">ftle</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">T</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eig_lya</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
+        <span class="k">return</span> <span class="n">ftle</span></div>
+
+<div class="viewcode-block" id="FTLE.get_ftle_3d_cartesian"><a class="viewcode-back" href="../../MYCOASTLCS.html#MYCOASTLCS.FTLE.FTLE.get_ftle_3d_cartesian">[docs]</a>    <span class="k">def</span> <span class="nf">get_ftle_3d_cartesian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot; Gets the 3D FTLE field in cartesian coordinates.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            - ds (xr.Dataset): grid structured dataset with lagrangian</span>
+<span class="sd">            simulation.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            - ftle (np.array) : 3d dimensional array.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">T</span><span class="p">,</span> <span class="n">timeindex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_integration_time</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+        <span class="n">x_T</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">timeindex</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+        <span class="n">y_T</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">timeindex</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+        <span class="n">z_T</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">z</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">timeindex</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+        <span class="n">dxdz</span><span class="p">,</span> <span class="n">dxdy</span><span class="p">,</span> <span class="n">dxdx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">x_T</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">z0</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">y0</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">x0</span><span class="p">)</span>
+        <span class="n">dydz</span><span class="p">,</span> <span class="n">dydy</span><span class="p">,</span> <span class="n">dydx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">y_T</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">z0</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">y0</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">x0</span><span class="p">)</span>
+        <span class="n">dzdx</span><span class="p">,</span> <span class="n">dzdy</span><span class="p">,</span> <span class="n">dzdz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">z_T</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">z0</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">y0</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">x0</span><span class="p">)</span>
+        <span class="n">nz</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nx</span> <span class="o">=</span> <span class="n">dxdz</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">ftle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">nz</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nx</span><span class="p">])</span>
+        <span class="n">J</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nz</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ny</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nx</span><span class="p">):</span>
+                    <span class="n">J</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">dxdx</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">],</span> <span class="n">dxdy</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">],</span> <span class="n">dxdz</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]],</span>
+                                  <span class="p">[</span><span class="n">dydx</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">],</span> <span class="n">dydy</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">],</span> <span class="n">dydz</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]],</span>
+                                  <span class="p">[</span><span class="n">dzdx</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">],</span> <span class="n">dzdy</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">],</span> <span class="n">dzdz</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]]])</span>
+                    <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">J</span><span class="p">),</span> <span class="n">J</span><span class="p">)</span>
+                    <span class="n">eig_lya</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+                    <span class="n">ftle</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">T</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eig_lya</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
+
+        <span class="k">return</span> <span class="n">ftle</span></div>
+
+<div class="viewcode-block" id="FTLE.to_dataset"><a class="viewcode-back" href="../../MYCOASTLCS.html#MYCOASTLCS.FTLE.FTLE.to_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">to_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">ftle</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot; writes the ftle field in the dataset.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            - ds (xr.Dataset): grid structured dataset with lagrangian</span>
+<span class="sd">            simulation.</span>
+<span class="sd">            - ftle (array) : 3d dimensional array.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            -  ds (xr.Dataset): grid structured dataset with ftle field</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">T</span><span class="p">,</span> <span class="n">timeindex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_integration_time</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">T</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;FTLE_forward&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">timeindex</span><span class="p">)</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">ftle</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">T</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;FTLE_backward&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">timeindex</span><span class="p">)</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">ftle</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ds</span></div>
+
+<div class="viewcode-block" id="FTLE.get_ftle"><a class="viewcode-back" href="../../MYCOASTLCS.html#MYCOASTLCS.FTLE.FTLE.get_ftle">[docs]</a>    <span class="k">def</span> <span class="nf">get_ftle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">to_dataset</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        It computes the FTLE (Finite Time Lyapunov Exponents) using the</span>
+<span class="sd">        Cauchy Green finite time deformation tensor described, Shadden (2005).</span>
+
+
+<span class="sd">        Args:</span>
+<span class="sd">            - to_dataset (bool, optional): By default, it added the computed</span>
+<span class="sd">            FTLE field, to the output dataset</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            -  ds (xr.Dataset): grid structured dataset with ftle field</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">T</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_integration_time</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&gt; FTLE  &gt;&gt; Computing...&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&gt; FTLE  &gt;&gt; t0 (starting time): &#39;</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&gt; FTLE  &gt;&gt; T (advection time): &#39;</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
+
+        <span class="n">flag_3d</span> <span class="o">=</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="s1">&#39;z0&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">z0</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spherical_flag</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">flag_3d</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="n">ftle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ftle_2d_cartesian</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spherical_flag</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">flag_3d</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="n">ftle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ftle_2d_spherical</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spherical_flag</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">flag_3d</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">):</span>
+            <span class="n">ftle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ftle_3d_cartesian</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+        <span class="k">elif</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">spherical_flag</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">flag_3d</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">)):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&gt; No spherical 3D FTLE available at the moment&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&gt; Choose cartersian-2d or spherical_2d or 3d&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="n">to_dataset</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">ftle</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">ftle</span></div>
+
+<div class="viewcode-block" id="FTLE.explore_ftle_timescale"><a class="viewcode-back" href="../../MYCOASTLCS.html#MYCOASTLCS.FTLE.FTLE.explore_ftle_timescale">[docs]</a>    <span class="k">def</span> <span class="nf">explore_ftle_timescale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        It computes the FTLE for all timesteps instead of a given one.</span>
+<span class="sd">        The output produced will help you to explore the timescale of the</span>
+<span class="sd">        deformation in order to infer the attributes for LCS and FTLE</span>
+<span class="sd">        computation.</span>
+
+
+<span class="sd">        Args:</span>
+<span class="sd">            - ds (xr.Dataset): grid structured dataset with ftle field</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            - ds (xr.Dataset) ds_output with FTLE computed for all timesteps.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&gt; FTLE &gt;&gt; Exploring time-scale T (advection time)&#39;</span><span class="p">)</span>
+        <span class="n">ftle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+        <span class="n">nsteps</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">size</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nsteps</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">integration_time</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="n">ftle</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ftle</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">to_dataset</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&gt; FTLE  &gt;&gt; &#39;</span> <span class="o">+</span> <span class="s1">&#39;time index: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">nsteps</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;FTLE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">ftle</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ds</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Angel Daniel Garaboa Paz / Vicente Perez Muñuzuri / Ricardo Torres / James Clark
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

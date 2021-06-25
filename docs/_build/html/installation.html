@@ -1,0 +1,331 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Requirements &mdash; MYCOAST-LCS March-2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="main Module" href="setup-json.html" />
+    <link rel="prev" title="Theory" href="theory.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> MYCOAST-LCS
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">MYCOASTLCS-Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theory.html">Theory</a></li>
+</ul>
+<p class="caption"><span class="caption-text">user guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#how-to-get-the-code">How to get the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#how-to-run-mycoastlcs">how to run MYCOASTLCS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup-json.html">main Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup-json.html#setup-json-template">Setup json template</a></li>
+</ul>
+<p class="caption"><span class="caption-text">code guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="MYCOASTLCS.html">MYCOASTLCS package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Bibliography.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MYCOAST-LCS</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Requirements</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="requirements">
+<h1>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h1>
+<dl class="simple">
+<dt>Requirements</dt><dd><ol class="arabic simple">
+<li><dl class="simple">
+<dt>Data requirements:</dt><dd><ol class="loweralpha simple">
+<li><p>The users need to have access to outputs from a forecast system. Currently this is restricted to products available through the CMEMS platform, FVCOM based systems, NEMO based systems and soon ROMS based systems. Partner’s systems can be used provided they adhere to WP6 model output standards.</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>System requirements:</dt><dd><ol class="loweralpha simple">
+<li><p>A multi-core Linux system (stand alone or HPC type) is recommended for running Pylag within a parallel environment due to the high computational requirements for running 105 particles. The MyCoastLCS tool doesn’t require multi-core capabilities.  The tools have been tested in PML’s local HPC (720 cpu, intel compilers), and several multi-core linux systems with Fedora versions ranging from 27 to 30.</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Software requirements:</dt><dd><ol class="loweralpha simple">
+<li><p>MPI passage module, C++ compiler, bash terminal (or equivalent), python 3 and conda (optional). The tools’ dependencies on specific python packages and versions are all handled automatically during the installation process (i.e. Pylag-tools, PyFVCOM, scypy).</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+</ol>
+</dd>
+</dl>
+</div>
+<div class="section" id="how-to-get-the-code">
+<h1>How to get the code<a class="headerlink" href="#how-to-get-the-code" title="Permalink to this headline">¶</a></h1>
+<p>To gain access to PML gitlab server where PyLag and MyCoastLCS are hosted contact Ricardo Torres (<a class="reference external" href="mailto:rito&#37;&#52;&#48;pml&#46;ac&#46;uk">rito<span>&#64;</span>pml<span>&#46;</span>ac<span>&#46;</span>uk</a>) or James Clark (<a class="reference external" href="mailto:jcl&#37;&#52;&#48;pml&#46;ac&#46;uk">jcl<span>&#64;</span>pml<span>&#46;</span>ac<span>&#46;</span>uk</a>).</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>PyLag:</dt><dd><ol class="loweralpha simple">
+<li><p>Precompiled binaries for 64bit Linux are accessible through a conda installation archived in a private conda channel. Detailed instructions can be found here (<a class="reference external" href="https://gitlab.ecosystem-modelling.pml.ac.uk/PyLag/PyLag">https://gitlab.ecosystem-modelling.pml.ac.uk/PyLag/PyLag</a>).</p></li>
+<li><p>The original code is maintained in PML’s gitlab repository and users can gain access upon registration (<a class="reference external" href="https://gitlab.ecosystem-modelling.pml.ac.uk/PyLag">https://gitlab.ecosystem-modelling.pml.ac.uk/PyLag</a>).</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>MyCoastLCS:</dt><dd><ol class="loweralpha simple">
+<li><p>Precompiled binaries are distributed with PyLag through a conda private channel (see above).</p></li>
+<li><p>The code can be accessed through PML’s gitlab server (<a class="reference external" href="https://gitlab.ecosystem-modelling.pml.ac.uk/ricardo.torres/mycoast-ftle">https://gitlab.ecosystem-modelling.pml.ac.uk/ricardo.torres/mycoast-ftle</a>).</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+</ol>
+</div>
+<div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>To gain access to PML gitlab server <a href="#id1"><span class="problematic" id="id2">`PML_gitlab`_</span></a> where PyLag and MyCoastLCS are hosted contact Ricardo Torres (<a class="reference external" href="mailto:rito&#37;&#52;&#48;pml&#46;ac&#46;uk">rito<span>&#64;</span>pml<span>&#46;</span>ac<span>&#46;</span>uk</a>) or James Clark (<a class="reference external" href="mailto:jcl&#37;&#52;&#48;pml&#46;ac&#46;uk">jcl<span>&#64;</span>pml<span>&#46;</span>ac<span>&#46;</span>uk</a>).</p>
+<dl>
+<dt>Pylag</dt><dd><p>To install there are two main options:</p>
+<ol class="arabic simple">
+<li><p>Install Pylag from conda-forge repositories with precompiled binaries (recomended for end-users),</p></li>
+<li><p>Install from repository and compile the modules by yourself (recomended for developers).</p></li>
+</ol>
+<p>Without dependence of the option of your choice, we strongly recomended to install anaconda in your system.</p>
+<p>Once you installed anaconda, and before install Pylag we recomend to create an specific environment “pylag” environment with python 3.7 to install pylag:</p>
+<p>Option 1): install from conda-forge (end-users)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n pylag <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7
+conda activate pylag
+Option <span class="m">1</span><span class="o">)</span>: install from conda-forge <span class="o">(</span>end-users<span class="o">)</span>
+conda config --append channels conda-forge
+conda config --append channels JimClark
+conda install -n pylag -c JimClark pylag
+</pre></div>
+</div>
+<p>Option 2): install from repositories (developers)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://gitlab.ecosystem-modelling.pml.ac.uk/PyLag/PyLag.git
+<span class="nb">cd</span> Pylag
+git pull
+conda build .
+conda install -n pylag --use-local pylag
+pip install
+</pre></div>
+</div>
+</dd>
+<dt>MyCoastLCS</dt><dd><dl>
+<dt>The code can be accessed through PML’s gitlab server, <cite>MYCOASTLCS_https</cite></dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://gitlab.ecosystem-modelling.pml.ac.uk/ricardo.torres/mycoast-ftle.git
+<span class="nb">cd</span> mycoast-ftle
+git checkout --track origin/T_direction_styling
+python3.7 -m pip install .
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>How to install the code</p>
+<blockquote>
+<div><ol class="arabic simple" start="2">
+<li><p>MyCoastLCS can be installed through conda with PyLag or as a site package with python. Instructions are included with the downloaded package.</p></li>
+</ol>
+</div></blockquote>
+</dd>
+</dl>
+</div>
+<div class="section" id="how-to-run-mycoastlcs">
+<h1>how to run MYCOASTLCS<a class="headerlink" href="#how-to-run-mycoastlcs" title="Permalink to this headline">¶</a></h1>
+<p>At the time of writing the tools are run via command line instructions from within a bash terminal (or equivalent). Once all the tools are installed, two configuration files are needed (examples provided by PML): one for the PyLag simulations and one for MyCoastLCS setup and plotting. Other configurable templates include an HPC queue submission script (if using an HPC system to run PyLag, PML can help if needed) and the location of rivers and/or Waste Water source points (Waste Water Treatment Plants and Surface Drainage Outfalls) as a shapefile.</p>
+<img alt="_images/MyCoastLCS_scheme.png" src="_images/MyCoastLCS_scheme.png" />
+<p>The steps a user would follow include:</p>
+<ol class="arabic simple">
+<li><p>Generate a dense regularly spaced set of initial conditions. A python script is provided for this purpose.</p></li>
+<li><p>Generate a set of initial positions for point source locations of pollutants. The python script provided as an example considers 3 types of sources points: rivers, waste water treatment plants and surface drainage outfalls. Ideally, the source concentrations would vary depending on river flow, water treatment plant capacity and rain fall. These dependencies are not implemented in our example.</p></li>
+<li><p>Generate master configuration file to specify type of simulation such as forward or backward integration (PyLag), duration of simulation for FTLE integration (i.e. 6-12 hours), total length of simulation (depends on user’s operational system forecast window), location of pollution point sources and  plots to be generated among others..</p></li>
+<li><p>Run Pylag with output from your forecast model of choice to generate the files to be used by MyCoastLCS and plotting scripts. While PyLag reads netcdf files that can be accessed from a local folder or a THREDDS or ERDDAP server via OpendAP it is recommended that the files are downloaded first for performance benefits.</p></li>
+<li><p>Run MyCoastLCS to obtain FTLE and LCS fields. The tool can optionally be used to estimate concentrations and residence times that can be used to generate a qualitative water quality indicator. Depending on the configuration of the workflow, a set of standard plots will be generate for your domain.</p></li>
+</ol>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="setup-json.html" class="btn btn-neutral float-right" title="main Module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="theory.html" class="btn btn-neutral float-left" title="Theory" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Angel Daniel Garaboa Paz / Vicente Perez Muñuzuri / Ricardo Torres / James Clark
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

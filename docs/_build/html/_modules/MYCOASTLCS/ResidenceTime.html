@@ -1,0 +1,326 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MYCOASTLCS.ResidenceTime &mdash; MYCOAST-LCS March-2019 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> MYCOAST-LCS
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">MYCOASTLCS-Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../theory.html">Theory</a></li>
+</ul>
+<p class="caption"><span class="caption-text">user guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html#how-to-get-the-code">How to get the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html#how-to-run-mycoastlcs">how to run MYCOASTLCS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup-json.html">main Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup-json.html#setup-json-template">Setup json template</a></li>
+</ul>
+<p class="caption"><span class="caption-text">code guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../MYCOASTLCS.html">MYCOASTLCS package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Bibliography.html">References</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MYCOAST-LCS</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>MYCOASTLCS.ResidenceTime</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for MYCOASTLCS.ResidenceTime</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot; Module to compute residence time. It computes the time that a particle</span>
+<span class="sd">spent on a cell. &quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">from</span> <span class="nn">.GridBased</span> <span class="kn">import</span> <span class="n">GridBased</span>
+
+
+<div class="viewcode-block" id="ResidenceTime"><a class="viewcode-back" href="../../MYCOASTLCS.html#MYCOASTLCS.ResidenceTime.ResidenceTime">[docs]</a><span class="k">class</span> <span class="nc">ResidenceTime</span><span class="p">(</span><span class="n">GridBased</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nbins</span><span class="p">,</span> <span class="n">bins_option</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Residence time initializer.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            nbins (int or list): Integer/s with the number of bins per dim.</span>
+<span class="sd">            bins_option (str): string with: &quot;origin, domain,custom&quot;</span>
+
+<span class="sd">        Options:</span>
+<span class="sd">            - &quot;origin&quot;: It uses the initial grid position to define the domain</span>
+<span class="sd">            limits to apply the &quot;nbins&quot; binning.</span>
+<span class="sd">            - &quot;domain&quot;: It uses the final particle positions to define the</span>
+<span class="sd">            domain limits to apply the &quot;nbins&quot; binning.</span>
+<span class="sd">            - &quot;custom&quot;: It uses custom user domain limits to apply the &quot;nbins&quot;</span>
+<span class="sd">            binning.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">GridBased</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nbins</span><span class="p">,</span> <span class="n">bins_option</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;residence_time&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">abbrev</span> <span class="o">=</span> <span class="s1">&#39;RESD&#39;</span>
+
+<div class="viewcode-block" id="ResidenceTime.get_counts"><a class="viewcode-back" href="../../MYCOASTLCS.html#MYCOASTLCS.ResidenceTime.ResidenceTime.get_counts">[docs]</a>    <span class="k">def</span> <span class="nf">get_counts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Computes the average residence time. For each particle, it</span>
+<span class="sd">        aproximates the time that a particles spents on a cell.</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            ds (xr.Dataset): Description</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            residence_time(np.array): array with average time spent at cell.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&gt; RESD  &gt;&gt; Computing... &#39;</span><span class="p">)</span>
+
+        <span class="n">n_tzyx</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">centers</span><span class="p">))</span>
+        <span class="n">time_in_cell</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_tzyx</span><span class="p">))</span>
+        <span class="n">mask_dif_id</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_tzyx</span><span class="p">))</span>
+
+        <span class="c1"># Assuming that all particles have same dt</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;timedelta64[s]&#39;</span><span class="p">)</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
+        <span class="n">nz</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nx</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">z0</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">y0</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">x0</span><span class="o">.</span><span class="n">size</span>
+        <span class="n">n_p</span> <span class="o">=</span> <span class="n">nz</span><span class="o">*</span><span class="n">nx</span><span class="o">*</span><span class="n">ny</span>
+
+        <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># We move the check of the dimension to the outest part of the loop</span>
+        <span class="c1"># to avoid excesive number of check</span>
+        <span class="k">if</span> <span class="n">time_in_cell</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nz</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ny</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nx</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="n">nz</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">ds</span><span class="o">.</span><span class="n">z</span><span class="p">[:,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                                      <span class="n">ds</span><span class="o">.</span><span class="n">y</span><span class="p">[:,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                                      <span class="n">ds</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">ds</span><span class="o">.</span><span class="n">z</span><span class="p">[:,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                                      <span class="n">ds</span><span class="o">.</span><span class="n">y</span><span class="p">[:,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                                      <span class="n">ds</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+                        <span class="c1"># If particle is NaN go to next</span>
+                        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">r</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">):</span>
+                            <span class="k">continue</span>
+                        <span class="n">counts</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogramdd</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bins</span><span class="p">)</span>
+                        <span class="n">time_in_cell</span> <span class="o">+=</span> <span class="n">counts</span><span class="o">*</span><span class="n">dt</span>  <span class="c1"># Counts the time</span>
+                        <span class="n">mask_dif_id</span> <span class="o">+=</span> <span class="p">(</span><span class="n">counts</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+                        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&gt; RESD  &gt;&gt; &#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%3.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">counter</span><span class="o">/</span><span class="n">n_p</span><span class="o">*</span><span class="mf">100.</span><span class="p">),</span>
+                          <span class="s1">&#39;%&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">time_in_cell</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nz</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ny</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nx</span><span class="p">):</span>
+                        <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">ds</span><span class="o">.</span><span class="n">y</span><span class="p">[:,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                                  <span class="n">ds</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">r</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">):</span>  <span class="c1"># If nan particle, go to next</span>
+                            <span class="k">continue</span>
+                        <span class="n">counts</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogramdd</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bins</span><span class="p">)</span>
+                        <span class="n">time_in_cell</span> <span class="o">+=</span> <span class="n">counts</span><span class="o">*</span><span class="n">dt</span>
+                        <span class="n">mask_dif_id</span> <span class="o">+=</span> <span class="p">(</span><span class="n">counts</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+                        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&gt; RESD  &gt;&gt; &#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%3.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">counter</span><span class="o">/</span><span class="n">n_p</span><span class="o">*</span><span class="mf">100.</span><span class="p">),</span>
+                          <span class="s1">&#39;%&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">residence_time</span> <span class="o">=</span> <span class="n">time_in_cell</span><span class="o">/</span><span class="n">mask_dif_id</span>  <span class="c1"># average residence time</span>
+        <span class="k">return</span> <span class="n">residence_time</span></div>
+
+<div class="viewcode-block" id="ResidenceTime.get_residence_time"><a class="viewcode-back" href="../../MYCOASTLCS.html#MYCOASTLCS.ResidenceTime.ResidenceTime.get_residence_time">[docs]</a>    <span class="k">def</span> <span class="nf">get_residence_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ds_input</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the residence time and append the result to the input dataset.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ds_input (xr.Dataset): Input dataset with particle positions.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            ds_output (xr.Dataset): Output dataset with concentrations.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_grid</span><span class="p">(</span><span class="n">ds_input</span><span class="p">)</span>
+        <span class="n">ds_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_dataset</span><span class="p">(</span><span class="n">ds_input</span><span class="p">)</span>
+        <span class="n">resd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_counts</span><span class="p">(</span><span class="n">ds_input</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">(</span><span class="n">ds_output</span><span class="p">,</span> <span class="n">resd</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ds_output</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Angel Daniel Garaboa Paz / Vicente Perez Muñuzuri / Ricardo Torres / James Clark
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
