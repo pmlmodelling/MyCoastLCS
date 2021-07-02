@@ -8,4 +8,5 @@ Clone as
 Install as 
 ``python3.7 setup.py install --user -e``
 
-
+To cite please use
+Garaboa-Paz, D., Eiras-Barca, J., & Pérez-Muñuzuri, V. (2017). Climatology of Lyapunov exponents: the link between atmospheric rivers and large-scale mixing variability. Earth System Dynamics, 8(3), 865-873.
