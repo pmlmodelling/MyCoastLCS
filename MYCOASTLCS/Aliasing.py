@@ -48,46 +48,46 @@ o---------o---------o---------o---------o
 
 import xarray as xr
 
-class Aliasing:
-    def get_alias(model_input=None, alias=None):
-        """
-        Get the alias dictionary (from the model input or from the json file)
-        to rename the dataset variables names of your lagrangian model with the
-        MYCOAST internal variables (x,y,z) to compute the FTLE.
+def get_alias(model_input=None, alias=None):
+    """
+    Get the alias dictionary (from the model input or from the json file)
+    to rename the dataset variables names of your lagrangian model with the
+    MYCOAST internal variables (x,y,z) to compute the FTLE.
 
-        Args:
-            - alias (dict): Dictionary to link the variable.
-        """
+    Args:
+        - alias (dict): Dictionary to link the variable.
+    """
 
-        if model_input == 'pylag':
-            alias = {'x': 'x', 'y': 'y', 'z': 'z',
-                     'time': 'time', 'particles': 'particle_id'}
-        elif model_input == 'lagar':
-            alias = {'lon': 'x', 'lat': 'y', 'depth': 'z',
-                     'time': 'time', 'id': 'particle_id'}
-        elif isinstance(alias, dict):
-            return alias
-        else:
-            raise ValueError("""provide an alias dictionary or model to link
-              your variables with my [x, y, z, time, particle_id] variables""")
-
+    if model_input == 'pylag':
+        alias = {'x': 'x', 'y': 'y', 'z': 'z',
+                 'time': 'time', 'particles': 'particle_id'}
+    elif model_input == 'lagar':
+        alias = {'lon': 'x', 'lat': 'y', 'depth': 'z',
+                 'time': 'time', 'id': 'particle_id'}
+    elif isinstance(alias, dict):
         return alias
+    else:
+        raise ValueError("""provide an alias dictionary or model to link
+          your variables with my [x, y, z, time, particle_id] variables""")
+
+    return alias
 
 
-    def rename_dataset(alias: dict, input_file: str) -> xr.Dataset:
-        """
-        Rename the variables/dimensions in the dataset using alias.
+def rename_dataset(alias: dict, input_file: str) -> xr.Dataset:
+    """
+    Rename the variables/dimensions in the dataset using alias.
 
-        Args:
-            alias (dict): Dictionary with variable/dimension names
-            input_file (str): Path to netCDF dataset.
+    Args:
+        alias (dict): Dictionary with variable/dimension names
+        input_file (str): Path to netCDF dataset.
 
-        Returns:
-            renamed_dataset (TYPE): Dataset with variables/dimension renamed.
+    Returns:
+        renamed_dataset (TYPE): Dataset with variables/dimension renamed.
 
-        """
+    """
 
-        raw_dataset = xr.open_dataset(input_file)
-        renamed_dataset = raw_dataset.rename(alias)
+    raw_dataset = xr.open_dataset(input_file)
+    renamed_dataset = raw_dataset.rename(alias)
 
-        return renamed_dataset
+    return renamed_dataset
+
