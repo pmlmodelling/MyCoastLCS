@@ -54,7 +54,7 @@ class ArrayToGrid:
         ds['x0'] = ds.x.isel(time=0).values.reshape(grid_shape)[0, 0, :]
         ds['y0'] = ds.y.isel(time=0).values.reshape(grid_shape)[0, :, 0]
         ds['z0'] = ds.z.isel(time=0).values.reshape(grid_shape)[:, 0, 0]
-        coords_data = [ds.time, ds.z0, ds.y0, ds.x0]
+        coords_data = [ds.time.data, ds.z0.data, ds.y0.data, ds.x0.data]
 
         # Setting the grid coordinates
         coords = dict(zip(self.coords_labels,
