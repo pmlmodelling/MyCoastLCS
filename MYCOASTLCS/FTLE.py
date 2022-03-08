@@ -24,9 +24,9 @@ This simplifies gradient computation and does not require a priory knowledge
 of the flow topology, which makes the discussion most broadly applicable.
 The initial locations of these points, as opposed to the final
 locations, represent the locations at which FTLE will be computed – the FTLE
-grid. Then, we using the particles trajectories given by the model soltuion
+grid. Then, we using the particles trajectories given by the model solution
 for each material point for a finite time interval, :math:`[t_0 ,t_0 + T]`,
-we computethe numerical gradient of the flow map.
+we compute the numerical gradient of the flow map.
 
 We use second order accurate central differences in the interior points and
 first order (forward or backwards) differences at the boundaries.
