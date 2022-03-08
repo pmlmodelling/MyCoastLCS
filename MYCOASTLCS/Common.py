@@ -4,7 +4,7 @@ import json
 import glob
 import xarray as xr
 import os
-from . import Aliasing
+from MYCOASTLCS.Aliasing import get_alias, rename_dataset
 from .ArrayToGrid import ArrayToGrid
 from .FTLE import FTLE
 from .LCS import LCS
@@ -49,8 +49,8 @@ class Common:
         return ds
 
     def process_one_file(self, input_file, output_file):
-        alias = Aliasing.get_alias(self.model, self.alias)
-        ds = Aliasing.rename_dataset(alias, input_file)
+        alias = get_alias(self.model, self.alias)
+        ds = rename_dataset(alias, input_file)
 
         array_ds = ArrayToGrid()
         grid_ds = array_ds.array_to_grid(ds, self.grid_shape)
